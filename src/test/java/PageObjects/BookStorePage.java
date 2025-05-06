@@ -1,5 +1,6 @@
 package PageObjects;
 
+import com.google.gson.internal.bind.util.ISO8601Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -12,7 +13,7 @@ import java.util.List;
 public class BookStorePage extends BaseClass {
     @FindBy(how = How.ID, using = "searchBox")
     private WebElement searchBox;
-    @FindBy(how= How.CLASS_NAME, using = "mr-2")
+    @FindBy(how= How.CLASS_NAME, using = "rt-tr-group")
     private List<WebElement> bookListSearch;
     @FindBy(how = How.CLASS_NAME,using = "rt-noData")
     private WebElement notFound;
@@ -23,12 +24,14 @@ public class BookStorePage extends BaseClass {
         searchBox.sendKeys(BookName);
     }
     public int countRes(){
-
-        return bookListSearch.size();
+        return driver.findElements(By.xpath("//div[@class=\"rt-td\"]/img")).size();
     }
     public boolean ExistNotFound(){
 
         return notFound.isDisplayed();
+    }
+    public WebElement getBook(int row) {
+        return bookListSearch.get(row);
     }
     public void clearSearch(){
         searchBox.click();
@@ -38,22 +41,16 @@ public class BookStorePage extends BaseClass {
         }
     }
 
-    public List<WebElement> getBookListSearch() {
-        return bookListSearch;
-    }
     public Book [] GetArrBooks() {
-         List<WebElement> rows=driver.findElements(By.cssSelector(".rt-tbody .rt-tr-group"));
-        int i=0;
-        Book [] arrayBooks=new Book[rows.size()];
+        Book [] arrayBooks=new Book[countRes()];
         try{
-            for (WebElement row : rows) {
-            String title = row.findElement(By.cssSelector(".rt-td:nth-child(2)")).getText();
-            String author = row.findElement(By.cssSelector(".rt-td:nth-child(3)")).getText();
-            String publisher = row.findElement(By.cssSelector(".rt-td:nth-child(4)")).getText();
-            Book b = new Book(title, author, publisher);
-            arrayBooks[i++] = b;
-        }
-
+            for (int i = 0; i < arrayBooks.length; i++) {
+                List<WebElement> temp =getBook(i).findElements(By.className("rt-td"));
+                String title=temp.get(1).getText();
+                String author=temp.get(2).getText();
+                String publisher=temp.get(3).getText();
+                arrayBooks[i]=new Book(title,author,publisher);
+            }
         }
         catch(Exception e){
             System.out.println(e.getMessage());
@@ -61,7 +58,7 @@ public class BookStorePage extends BaseClass {
         return arrayBooks;
     }
     public void print(Book [] books) {
-        for (int i = 0; i < books.length; i++) {
+        for(int i = 0; i < books.length; i++) {
             System.out.println(books[i].toString());
         }
     }

@@ -6,9 +6,9 @@ public class Book {
     private String publisher;
 
     public Book(String title, String author, String publisher) {
-        this.title = title;
-        this.author = author;
-        this.publisher = publisher;
+       this.title=title;
+       this.author=author;
+       this.publisher=publisher;
     }
 
     public String getTitle() {
@@ -37,10 +37,6 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" +
-                "title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", publisher='" + publisher + '\'' +
-                '}';
+        return " title= " + title  + ", author= " + author + ", publisher=" + publisher;
     }
 }

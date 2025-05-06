@@ -13,7 +13,7 @@ public class MainPage extends BaseClass {
     LoginPage loginPage;
     HeaderPage headerPage;
     BookStorePage bookStorePage;
-
+    List<WebElement> books;
 
     @BeforeClass
     public void startSession() {
