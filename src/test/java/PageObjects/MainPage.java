@@ -13,7 +13,7 @@ public class MainPage extends BaseClass {
     LoginPage loginPage;
     HeaderPage headerPage;
     BookStorePage bookStorePage;
-    List<WebElement> books;
+
 
     @BeforeClass
     public void startSession() {
@@ -73,8 +73,7 @@ public class MainPage extends BaseClass {
     public void printAllBooks() {
         try {
             bookStorePage.clearSearch();
-            books = bookStorePage.getBookListSearch();
-            Book[] arrayBooks = bookStorePage.GetArrBooks(books);
+            Book[] arrayBooks = bookStorePage.GetArrBooks();
             bookStorePage.print(arrayBooks);
         } catch (Exception e) {
             System.out.println("test6 failed " + e.getMessage());

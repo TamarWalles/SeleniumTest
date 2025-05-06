@@ -41,16 +41,17 @@ public class BookStorePage extends BaseClass {
     public List<WebElement> getBookListSearch() {
         return bookListSearch;
     }
-    public Book [] GetArrBooks(List<WebElement> books) {
-        Book [] arrayBooks=new Book[books.size()];
+    public Book [] GetArrBooks() {
+         List<WebElement> rows=driver.findElements(By.cssSelector(".rt-tbody .rt-tr-group"));
+        int i=0;
+        Book [] arrayBooks=new Book[rows.size()];
         try{
-
-        for (int i = 0; i < books.size(); i++) {
-            String title = driver.findElements(By.className("mr-2")).get(i).getText();
-            String author = driver.findElements(By.className("rt-td")).get(2 * i + 1).getText();
-            String publisher = driver.findElements(By.className("rt-td")).get(2 * i + 2).getText();
-            Book b = new Book(title, author, title);
-            arrayBooks[i] = b;
+            for (WebElement row : rows) {
+            String title = row.findElement(By.cssSelector(".rt-td:nth-child(2)")).getText();
+            String author = row.findElement(By.cssSelector(".rt-td:nth-child(3)")).getText();
+            String publisher = row.findElement(By.cssSelector(".rt-td:nth-child(4)")).getText();
+            Book b = new Book(title, author, publisher);
+            arrayBooks[i++] = b;
         }
 
         }
