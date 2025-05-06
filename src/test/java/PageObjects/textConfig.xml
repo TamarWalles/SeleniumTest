@@ -1,0 +1,9 @@
+<Environment>
+    <url>https://demoqa.com/login</url>
+    <userName>Tamar</userName>
+    <password>Abcdef1@</password>
+    <firstSreach>git Pocket</firstSreach>
+    <firstSreachExpected>1</firstSreachExpected>
+    <SecondSearch>Verisoft</SecondSearch>
+    <SecondSearchExpected>0</SecondSearchExpected>
+</Environment>
